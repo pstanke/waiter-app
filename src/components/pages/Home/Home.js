@@ -5,7 +5,7 @@ export const Home = () => {
     <>
       <Row>
         <Col>
-          <h1>All Posts</h1>
+          <h1>All Tables</h1>
         </Col>
       </Row>
     </>

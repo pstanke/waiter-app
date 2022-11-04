@@ -10,6 +10,7 @@ import { Home } from './components/pages/Home/Home';
 import { ErrorPage } from './components/pages/ErrorPage/ErrorPage';
 
 import { fetchTables } from './redux/tablesRedux';
+import { SingleTable } from './components/pages/SingleTable/SingleTable';
 
 export function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ export function App() {
       <Header />
       <Routes>
         <Route path='/' element={<Home />} />
+        <Route path='/table/:tableId' element={<SingleTable />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
       <Footer />

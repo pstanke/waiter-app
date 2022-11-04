@@ -1,5 +1,5 @@
 import { Button, ListGroup, Row, Col } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { getAllTables } from '../../../redux/tablesRedux';
@@ -18,7 +18,9 @@ export const AllTables = () => {
               <strong>Status:</strong> {table.status}
             </Col>
             <Col className='d-flex justify-content-end '>
-              <Button>Show more</Button>
+              <Button as={Link} to={'table/' + table.id}>
+                Show more
+              </Button>
             </Col>
           </Row>
         </ListGroup.Item>

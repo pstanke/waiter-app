@@ -1,4 +1,5 @@
 import { Col, Row } from 'react-bootstrap';
+import { AllTables } from '../../features/AllTables/AllTables';
 
 export const Home = () => {
   return (
@@ -7,6 +8,7 @@ export const Home = () => {
         <Col>
           <h1>All Tables</h1>
         </Col>
+        <AllTables />
       </Row>
     </>
   );

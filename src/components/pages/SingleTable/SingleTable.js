@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 
 import { getTableById } from '../../../redux/tablesRedux';
 
@@ -8,7 +7,10 @@ import { TableForm } from '../../features/TableForm/TableForm';
 
 export const SingleTable = () => {
   const { tableId } = useParams();
-  const tableData = useSelector((state) => getTableById(state, tableId));
+  const tableData = useSelector(({ tables }) =>
+    getTableById({ tables }, tableId)
+  );
+
   if (!tableData) return <Navigate to='/' />;
   return (
     <>

@@ -9,6 +9,7 @@ import { Footer } from './components/views/Footer/Footer';
 import { Home } from './components/pages/Home/Home';
 import { ErrorPage } from './components/pages/ErrorPage/ErrorPage';
 import { SingleTable } from './components/pages/SingleTable/SingleTable';
+import { AddTable } from './components/pages/AddTable/AddTable';
 
 import { fetchTables } from './redux/tablesRedux';
 
@@ -23,6 +24,7 @@ export function App() {
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/table/:tableId' element={<SingleTable />} />
+        <Route path='/table/add' element={<AddTable />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
       <Footer />

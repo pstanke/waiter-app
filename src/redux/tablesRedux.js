@@ -1,3 +1,5 @@
+import shortid from 'shortid';
+
 //state
 export const initialTableState = {
   data: [],
@@ -18,6 +20,7 @@ export const getTableById = (state, tableId) =>
 const createActionName = (actionName) => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const EDIT_TABLE = createActionName('EDIT_TABLE');
+const ADD_TABLE = createActionName('ADD_TABLE');
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 
@@ -57,6 +60,25 @@ export const editTableRequest = (payload) => {
   };
 };
 
+export const addTable = (payload) => ({ type: ADD_TABLE, payload });
+export const addTableRequest = (payload) => {
+  return (dispatch) => {
+    const options = {
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+
+      body: JSON.stringify(payload),
+    };
+
+    fetch('http://localhost:3131/tables/', options).then(() =>
+      dispatch(addTable(payload))
+    );
+  };
+};
+
 export const TablesReducer = (statePart = initialTableState, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
@@ -74,6 +96,12 @@ export const TablesReducer = (statePart = initialTableState, action) => {
             ? { ...table, ...action.payload }
             : table
         ),
+      };
+
+    case ADD_TABLE:
+      return {
+        ...statePart,
+        data: [...statePart, { ...action.payload, id: shortid() }],
       };
 
     case FETCH_START:

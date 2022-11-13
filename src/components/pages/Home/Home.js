@@ -13,6 +13,7 @@ export const Home = () => {
         <Col>
           <h1>All Tables</h1>
         </Col>
+
         {!loading && !error && <AllTables />}
       </Row>
       {loading && !error && <Spinner animation='border' variant='primary' />}

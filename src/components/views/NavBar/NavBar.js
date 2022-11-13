@@ -7,6 +7,9 @@ export const NavBar = () => {
       <Container>
         <Navbar.Brand>Waiter.app</Navbar.Brand>
         <Nav>
+          <Nav.Link as={NavLink} to='/table/add'>
+            New table
+          </Nav.Link>
           <Nav.Link as={NavLink} to='/'>
             Home
           </Nav.Link>

@@ -1,23 +1,23 @@
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
 import { useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
-import {
-  editTableRequest,
-  getAllTableStatus,
-} from '../../../redux/tablesRedux';
+import { getAllTableStatus } from '../../../redux/tablesRedux';
 
-export const TableForm = ({ ...props }) => {
-  const [status, setStatus] = useState(props.status);
-  const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount);
-  const [maxPeopleAmount, setMaxPeopleAmount] = useState(props.maxPeopleAmount);
-  const [bill, setBill] = useState(props.bill);
+export const TableForm = ({ action, actionText, ...props }) => {
+  const [status, setStatus] = useState(props.status || '');
+  const [peopleAmount, setPeopleAmount] = useState(props.peopleAmount || 0);
+  const [maxPeopleAmount, setMaxPeopleAmount] = useState(
+    props.maxPeopleAmount || 10
+  );
+  const [bill, setBill] = useState(props.bill || 0);
   const id = props.id;
 
-  const dispatch = useDispatch();
   const allStatus = useSelector(getAllTableStatus);
+
+  const [statusError, setStatusError] = useState(false);
 
   if (peopleAmount > maxPeopleAmount && maxPeopleAmount > 0) {
     setPeopleAmount(maxPeopleAmount);
@@ -30,9 +30,10 @@ export const TableForm = ({ ...props }) => {
   } = useForm();
 
   const handleSubmit = () => {
-    dispatch(
-      editTableRequest({ status, peopleAmount, maxPeopleAmount, bill, id })
-    );
+    setStatusError(!status);
+    if (status) {
+      action({ status, peopleAmount, maxPeopleAmount, bill, id });
+    }
   };
 
   return (
@@ -47,13 +48,19 @@ export const TableForm = ({ ...props }) => {
 
           <Col xs={'auto'}>
             <Form.Select
-              value={status}
+              value={status ? status : 1}
               onChange={(e) => setStatus(e.target.value)}
             >
-              {allStatus.map((status) => (
-                <option key={status}>{status}</option>
+              <option hidden>Select category</option>
+              {allStatus.map((status, index) => (
+                <option key={index}>{status}</option>
               ))}
             </Form.Select>
+            {statusError && (
+              <small className='d-block form-text text-danger mt-2'>
+                This field is required
+              </small>
+            )}
           </Col>
         </Row>
       </Form.Group>
@@ -136,7 +143,7 @@ export const TableForm = ({ ...props }) => {
       )}
 
       <Button variant='primary' type='submit'>
-        Update
+        {actionText}
       </Button>
     </Form>
   );

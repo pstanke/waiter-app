@@ -73,7 +73,7 @@ export const TableForm = ({ action, actionText, ...props }) => {
             </Form.Label>
           </Col>
 
-          <Col xs={3} sm={2} md={1}>
+          <Col xs={3} sm={2} lg={1}>
             <Form.Control
               {...register('peopleAmount', {
                 required: true,
@@ -100,7 +100,7 @@ export const TableForm = ({ action, actionText, ...props }) => {
             /
           </Col>
 
-          <Col xs={3} sm={2} md={1}>
+          <Col xs={3} sm={2} lg={1}>
             <Form.Control
               {...register('maxPeopleAmount', {
                 required: true,

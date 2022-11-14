@@ -21,6 +21,7 @@ const createActionName = (actionName) => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const EDIT_TABLE = createActionName('EDIT_TABLE');
 const ADD_TABLE = createActionName('ADD_TABLE');
+const REMOVE_TABLE = createActionName('REMOVE_TABLE');
 const FETCH_START = createActionName('FETCH_START');
 const FETCH_ERROR = createActionName('FETCH_ERROR');
 
@@ -79,6 +80,22 @@ export const addTableRequest = (payload) => {
   };
 };
 
+export const removeTable = (payload) => ({ type: REMOVE_TABLE, payload });
+export const removeTableRequest = (payload) => {
+  return (dispatch) => {
+    const options = {
+      method: 'DELETE',
+
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+    fetch('http://localhost:3131/tables/' + payload, options).then(() =>
+      dispatch(removeTable(payload))
+    );
+  };
+};
+
 export const TablesReducer = (statePart = initialTableState, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
@@ -101,7 +118,13 @@ export const TablesReducer = (statePart = initialTableState, action) => {
     case ADD_TABLE:
       return {
         ...statePart,
-        data: [...statePart, { ...action.payload, id: shortid() }],
+        data: [statePart, { ...action.payload, id: shortid() }],
+      };
+
+    case REMOVE_TABLE:
+      return {
+        ...statePart,
+        data: statePart.data.filter((table) => table.id !== action.payload),
       };
 
     case FETCH_START:

@@ -29,11 +29,11 @@
       "bill": 0
     },
     {
-      "status": "Free",
-      "peopleAmount": 0,
-      "maxPeopleAmount": 10,
-      "bill": 0,
-      "id": "6p-ESrq"
+      "id": "5",
+      "status": "Reserved",
+      "peopleAmount": 1,
+      "maxPeopleAmount": 3,
+      "bill": 0
     }
   ]
 }

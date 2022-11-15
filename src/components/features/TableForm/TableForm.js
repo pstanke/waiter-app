@@ -29,7 +29,8 @@ export const TableForm = ({ action, actionText, ...props }) => {
     formState: { errors },
   } = useForm();
 
-  const handleSubmit = () => {
+  const handleSubmit = (_, e) => {
+    e.preventDefault();
     setStatusError(!status);
     if (status) {
       action({ status, peopleAmount, maxPeopleAmount, bill, id });

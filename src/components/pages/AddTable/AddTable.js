@@ -9,7 +9,8 @@ export const AddTable = () => {
 
   const handleSubmit = (table) => {
     dispatch(addTableRequest(table));
-    navigate('/');
+    console.log('test');
+    navigate('/asad');
   };
 
   return (

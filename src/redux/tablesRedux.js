@@ -34,7 +34,7 @@ export const updateTables = (payload) => ({ type: UPDATE_TABLES, payload });
 export const fetchTables = () => {
   return (dispatch) => {
     dispatch(fetchStart());
-    fetch(API_URL + '/tables')
+    fetch(`${API_URL}/tables`)
       .then((res) => res.json())
       .then((tables) => dispatch(updateTables(tables)))
       .catch((error) => {
@@ -56,9 +56,9 @@ export const editTableRequest = (payload) => {
       body: JSON.stringify(payload),
     };
 
-    fetch(API_URL + '/tables/' + payload.id, options).then(() =>
-      dispatch(editTable(payload))
-    );
+    const url = `${API_URL}/tables/${payload.id}`;
+
+    fetch(url, options).then(() => dispatch(editTable(payload)));
   };
 };
 
@@ -75,9 +75,7 @@ export const addTableRequest = (payload) => {
       body: JSON.stringify(payload),
     };
 
-    fetch(API_URL + '/tables/', options).then(() =>
-      dispatch(addTable(payload))
-    );
+    fetch(`${API_URL}/tables`, options).then(() => dispatch(addTable(payload)));
   };
 };
 
@@ -91,13 +89,14 @@ export const removeTableRequest = (payload) => {
         'Content-Type': 'application/json',
       },
     };
-    fetch(API_URL + '/tables/' + payload, options).then(() =>
-      dispatch(removeTable(payload))
-    );
+
+    const url = `${API_URL}/tables/${payload}`;
+
+    fetch(url, options).then(() => dispatch(removeTable(payload)));
   };
 };
 
-export const TablesReducer = (statePart = initialTableState, action) => {
+export const tablesReducer = (statePart = initialTableState, action) => {
   switch (action.type) {
     case UPDATE_TABLES:
       return {

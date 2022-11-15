@@ -108,7 +108,7 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case EDIT_TABLE:
       return {
         ...statePart,
-        data: statePart.data.map((table) =>
+        ...statePart.data.map((table) =>
           table.id === action.payload.id
             ? { ...table, ...action.payload }
             : table
@@ -118,13 +118,13 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case ADD_TABLE:
       return {
         ...statePart,
-        data: [statePart, { ...action.payload, id: shortid() }],
+        ...[statePart.data, { ...action.payload, id: shortid() }],
       };
 
     case REMOVE_TABLE:
       return {
         ...statePart,
-        data: statePart.data.filter((table) => table.id !== action.payload),
+        ...statePart.data.filter((table) => table.id !== action.payload),
       };
 
     case FETCH_START:

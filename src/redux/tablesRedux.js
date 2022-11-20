@@ -14,11 +14,11 @@ export const initialTableState = {
 //selectors
 export const getAllTables = (state) => state.tables.data;
 export const getAllTableStatus = (state) => state.tables.tableStatus;
-export const getTableById = (state, tableId) =>
-  state.tables.data.find((table) => table.id === tableId);
+export const getTableById = (state, id) =>
+  state.tables.data.find((table) => table.id === id);
 
 // actions
-const createActionName = (actionName) => `app/tables/${actionName}`;
+const createActionName = (actionName) => `app/table/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const EDIT_TABLE = createActionName('EDIT_TABLE');
 const ADD_TABLE = createActionName('ADD_TABLE');
@@ -108,7 +108,7 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case EDIT_TABLE:
       return {
         ...statePart,
-        ...statePart.data.map((table) =>
+        data: statePart.data.map((table) =>
           table.id === action.payload.id
             ? { ...table, ...action.payload }
             : table
@@ -118,13 +118,13 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case ADD_TABLE:
       return {
         ...statePart,
-        ...[statePart.data, { ...action.payload, id: shortid() }],
+        data: [statePart.data, { ...action.payload, id: shortid() }],
       };
 
     case REMOVE_TABLE:
       return {
         ...statePart,
-        ...statePart.data.filter((table) => table.id !== action.payload),
+        data: statePart.data.filter((table) => table.id !== action.payload),
       };
 
     case FETCH_START:

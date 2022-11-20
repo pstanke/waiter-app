@@ -31,7 +31,7 @@ export const EditTableForm = () => {
   };
 
   const handleSubmit = (table) => {
-    dispatch(editTableRequest({ ...table, tableId }));
+    dispatch(editTableRequest({ ...table }));
   };
 
   if (!tableData) return <Navigate to='/' />;

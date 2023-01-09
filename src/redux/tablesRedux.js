@@ -18,7 +18,7 @@ export const getTableById = (state, id) =>
   state.tables.data.find((table) => table.id === id);
 
 // actions
-const createActionName = (actionName) => `app/table/${actionName}`;
+const createActionName = (actionName) => `app/tables/${actionName}`;
 const UPDATE_TABLES = createActionName('UPDATE_TABLES');
 const EDIT_TABLE = createActionName('EDIT_TABLE');
 const ADD_TABLE = createActionName('ADD_TABLE');
@@ -118,7 +118,7 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case ADD_TABLE:
       return {
         ...statePart,
-        data: [statePart.data, { ...action.payload, id: shortid() }],
+        data: [...statePart.data, { ...action.payload, id: shortid() }],
       };
 
     case REMOVE_TABLE:

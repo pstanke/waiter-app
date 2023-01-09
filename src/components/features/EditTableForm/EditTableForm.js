@@ -1,4 +1,4 @@
-import { Button } from 'react-bootstrap';
+import { Button, Spinner } from 'react-bootstrap';
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,6 +6,7 @@ import { Navigate, useParams, useNavigate } from 'react-router-dom';
 
 import {
   editTableRequest,
+  getAllTables,
   getTableById,
   removeTableRequest,
 } from '../../../redux/tablesRedux';
@@ -17,7 +18,7 @@ export const EditTableForm = () => {
   const tableData = useSelector(({ tables }) =>
     getTableById({ tables }, tableId)
   );
-
+  const allTables = useSelector(getAllTables);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -32,9 +33,15 @@ export const EditTableForm = () => {
 
   const handleSubmit = (table) => {
     dispatch(editTableRequest({ ...table }));
+    navigate('/');
   };
 
-  if (!tableData) return <Navigate to='/' />;
+  if (!tableData && allTables.length) {
+    return <Navigate to='/' />;
+  }
+  if (!allTables.length) {
+    return <Spinner animation='border' variant='primary' />;
+  }
   return (
     <>
       <h1>Table {tableData.id}</h1>

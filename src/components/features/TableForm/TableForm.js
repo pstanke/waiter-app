@@ -1,10 +1,11 @@
 import { Form, Row, Col, Button } from 'react-bootstrap';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
 
 import { getAllTableStatus } from '../../../redux/tablesRedux';
+import shortid from 'shortid';
 
 export const TableForm = ({ action, actionText, ...props }) => {
   const [status, setStatus] = useState(props.status || '');
@@ -13,7 +14,7 @@ export const TableForm = ({ action, actionText, ...props }) => {
     props.maxPeopleAmount || 10
   );
   const [bill, setBill] = useState(props.bill || 0);
-  const id = props.id;
+  const [id, setId] = useState(props.id || '');
 
   const allStatus = useSelector(getAllTableStatus);
 
@@ -22,6 +23,11 @@ export const TableForm = ({ action, actionText, ...props }) => {
   if (peopleAmount > maxPeopleAmount && maxPeopleAmount > 0) {
     setPeopleAmount(maxPeopleAmount);
   }
+  useEffect(() => {
+    if (!props.id) {
+      setId(shortid());
+    }
+  }, [props.id]);
 
   const {
     register,

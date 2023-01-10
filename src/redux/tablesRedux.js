@@ -118,7 +118,7 @@ export const tablesReducer = (statePart = initialTableState, action) => {
     case ADD_TABLE:
       return {
         ...statePart,
-        data: [...statePart.data, { ...action.payload, id: shortid() }],
+        data: [...statePart.data, { ...action.payload }],
       };
 
     case REMOVE_TABLE:

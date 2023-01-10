@@ -1,4 +1,3 @@
-import shortid from 'shortid';
 import { API_URL } from '../config.js';
 
 //state
